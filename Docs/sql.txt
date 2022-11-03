@@ -1,0 +1,95 @@
+START TRANSACTION;
+CREATE DATABASE IF NOT EXISTS `cab_management`;
+USE cab_management;
+CREATE TABLE IF NOT EXISTS `admin` (
+`admin_id` INT NOT NULL AUTO_INCREMENT,
+`username` VARCHAR(200) NOT NULL,    
+`password` VARCHAR(200) NOT NULL,
+PRIMARY KEY (`admin_id`)
+);
+CREATE TABLE IF NOT EXISTS `user` (
+`user_id` INT NOT NULL AUTO_INCREMENT,
+`rating` FLOAT NOT NULL DEFAULT '0',
+`history` VARCHAR(200),
+`mobile_no` BIGINT NOT NULL,
+`name` VARCHAR(200) NOT NULL,
+`password` VARCHAR(200) NOT NULL,
+`created_at` datetime default CURRENT_TIMESTAMP,
+PRIMARY KEY (`user_id`)
+);
+CREATE TABLE IF NOT EXISTS `car` (
+`car_reg_id` VARCHAR(200) NOT NULL,
+`admin_id` INT NOT NULL,
+`rate_per_km` INT NOT NULL,
+`model` VARCHAR(200) NOT NULL,
+`color` VARCHAR(200) NOT NULL,
+`category` ENUM('Prime SUV', 'Prime Sedan', 'Mini', 'Micro', 'Lux') NOT NULL,
+`created_at` datetime default CURRENT_TIMESTAMP,
+PRIMARY KEY (`car_reg_id`),
+FOREIGN KEY (`admin_id`) REFERENCES admin(`admin_id`)
+);
+CREATE TABLE IF NOT EXISTS `driver` (
+`driver_id` INT NOT NULL AUTO_INCREMENT,
+`admin_id` INT NOT NULL,
+`car_reg_id` VARCHAR(200) NOT NULL,
+`report_id` INT NOT NULL,
+`name` VARCHAR(200) NOT NULL,
+`gender` ENUM('M','F') NOT NULL,
+`mob_no` BIGINT NOT NULL,
+`history` INT,
+`rating` INT NOT NULL DEFAULT '0',
+`image_url` VARCHAR(200),
+`created_at` datetime default CURRENT_TIMESTAMP,
+PRIMARY KEY (`driver_id`),
+FOREIGN KEY (`admin_id`) REFERENCES admin(`admin_id`),
+FOREIGN KEY (`car_reg_id`) REFERENCES car(`car_reg_id`)
+);
+CREATE TABLE IF NOT EXISTS `trip` (
+`trip_id` INT NOT NULL AUTO_INCREMENT,
+`user_id` INT NOT NULL,
+`driver_id` INT NOT NULL,
+`status` ENUM('Accept','Reject'),
+`pickup_location` VARCHAR(200) NOT NULL,
+`drop_location` VARCHAR(200) NOT NULL,
+`start_km` INT NOT NULL,
+`end_km` INT,
+`created_at` datetime default CURRENT_TIMESTAMP,
+`updated_at` datetime default CURRENT_TIMESTAMP,
+PRIMARY KEY (`trip_id`),
+FOREIGN KEY (`user_id`) REFERENCES user(`user_id`),
+FOREIGN KEY (`driver_id`) REFERENCES driver(`driver_id`)
+);
+CREATE TABLE IF NOT EXISTS `bill` (
+`bill_id` INT NOT NULL AUTO_INCREMENT,
+`trip_id` INT NOT NULL,
+`user_id` INT NOT NULL,
+`driver_id` INT NOT NULL,
+`balance_amt` INT,
+`partital_amt` INT NOT NULL,
+`created_at` datetime default CURRENT_TIMESTAMP,
+PRIMARY KEY (`bill_id`),
+FOREIGN KEY (`trip_id`) REFERENCES trip(`trip_id`),
+FOREIGN KEY (`user_id`) REFERENCES user(`user_id`),
+FOREIGN KEY (`driver_id`) REFERENCES driver(`driver_id`)
+);
+CREATE TABLE IF NOT EXISTS `sales_report` (
+`report_id` INT NOT NULL AUTO_INCREMENT,
+`admin_id` INT NOT NULL,
+`date` DATETIME NOT NULL,
+`trips` INT NOT NULL DEFAULT '0',
+`revenue` INT NOT NULL DEFAULT '0',
+`is_driver` TINYINT NOT NULL,
+`is_user` TINYINT NOT NULL,
+`driver_id` INT DEFAULT NULL,
+`user_id` INT DEFAULT NULL,
+`created_at` datetime default CURRENT_TIMESTAMP,
+PRIMARY KEY (`report_id`),
+FOREIGN KEY (`admin_id`) REFERENCES admin(`admin_id`),
+FOREIGN KEY (`driver_id`) REFERENCES driver(`driver_id`),
+FOREIGN KEY (`user_id`) REFERENCES user(`user_id`)
+);
+INSERT INTO admin (`admin_id`, `password`)
+VALUES ('1111', 'pass1111');
+INSERT INTO admin (`admin_id`, `password`)
+VALUES ('2222', 'pass2222');
+COMMIT;
