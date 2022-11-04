@@ -13,8 +13,36 @@ class Trip extends CI_Controller
 
         //$this->output->enable_profiler(TRUE);
     }
+// list all the trips
+    public function listall()
+    {
+        $data['page_title'] = 'View Trips';
+        $data['main_content'] = 'Trip/view';
+        $data['trip_data'] = $this->trip->get_full_details_by_id_array();
+        if ($this->session->userdata('currently_logged_in')) {
+            empty($data['trip_data']) ? $this->session->set_flashdata('error', 'Sorry ! No trips found') : '';
+            $this->load->view('layout', $data);
+        } else {
+            redirect('Login');
+        }
+    }
 
-
+// sales report
+    public function salesreport()
+    {
+        $data['page_title'] = 'View Trips';
+        $data['main_content'] = 'Trip/salesreport';
+        $data['trip_data'] = $this->trip->get_full_details_by_id_array();
+        $data['total_sales'] = $this->trip->get_sales()['total_sales'];
+        $data['total_revenue'] = $this->trip->get_sales(array('customer_payment!='=>''))['total_sales'];
+        $data['pending_payments'] = $this->trip->get_sales(array('customer_payment'=>NULL))['total_sales'];
+        if ($this->session->userdata('currently_logged_in')) {
+            empty($data['trip_data']) ? $this->session->set_flashdata('error', 'Sorry ! No trips found') : '';
+            $this->load->view('layout', $data);
+        } else {
+            redirect('Login');
+        }
+    }
 
     public function mytrips()
     {

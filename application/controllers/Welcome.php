@@ -17,11 +17,30 @@ class Welcome extends CI_Controller
 	 *
 	 * So any other public methods not prefixed with an underscore will
 	 * map to /index.php/welcome/<method_name>
-	 * @see https://codeigniter.com/userguide3/general/urls.html
+	 * 
 	 */
+
+	public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('car_model', 'car');
+        $this->load->model('driver_model', 'driver');
+        $this->load->model('trip_model', 'trip');
+        $this->load->helper(array('form', 'url', 'security'));
+
+        //$this->output->enable_profiler(TRUE);
+    } 
 	public function index()
 	{
-		$data['page_title'] = 'Admin:Cars';
+
+		$data['total_cabs'] = count($this->car->get_all());
+		$data['unassigned_cabs'] = count($this->car->get_unassigned_cabs());
+		$data['assigned_cabs'] = count($this->car->get_assigned_cabs());
+		$data['honoured_trips'] = count($this->trip->get_all_trips('status','Completed'));
+		$data['cancelled_trips'] = count($this->trip->get_all_trips('status','Reject')) + count($this->trip->get_all_trips('status','Drivercancelled')) + count($this->trip->get_all_trips('status','Usercancelled'));
+		$data['total_trips'] = count($this->trip->get_all_trips()) ;
+
+		$data['page_title'] = 'AdminDashboard';
         $data['main_content'] = 'dashboard';
  
 		if ($this->session->userdata('currently_logged_in')) {

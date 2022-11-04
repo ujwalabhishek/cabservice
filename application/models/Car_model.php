@@ -36,7 +36,7 @@ class Car_Model extends CI_Model
     public function get_unassigned_cabs()
     {
         $query = $this->db->query('SELECT c.car_reg_id, c.model FROM car c WHERE NOT EXISTS ( SELECT 1 FROM driver d WHERE c.car_reg_id = d.car_reg_id ) order by c.created_at DESC;');
-        $car_reg_ids=$query->result_array();
+        $car_reg_ids = $query->result_array();
 
         if (empty($car_reg_ids)) {
             return false;
@@ -45,6 +45,30 @@ class Car_Model extends CI_Model
         }
     }
 
+
+
+    /**
+     * @return [type]
+     * get all assigned cabs
+     */
+    public function get_assigned_cabs()
+    {
+        $query = $this->db->query('SELECT c.car_reg_id, c.model FROM car c WHERE EXISTS ( SELECT 1 FROM driver d WHERE c.car_reg_id = d.car_reg_id ) order by c.created_at DESC;');
+        $car_reg_ids = $query->result_array();
+
+        if (empty($car_reg_ids)) {
+            return false;
+        } else {
+            return $car_reg_ids;
+        }
+    }
+
+    
+    /**
+     * @param null $car_reg_id
+     * 
+     * @return [type]
+     */
     public function get_by_id($car_reg_id = NULL)
     {
         $this->db->select('*');
@@ -93,7 +117,8 @@ class Car_Model extends CI_Model
     /* 
      * This method inserts  the cars to the inventory
      */
-    public function insert($data) {
+    public function insert($data)
+    {
         return $this->db->insert('car', $data);
         if ($this->db->affected_rows() > 0) {
             return TRUE;

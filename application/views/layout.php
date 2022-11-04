@@ -44,6 +44,12 @@
               <?php echo anchor('Welcome', '<i class="nc-icon nc-bank"></i>Admin Dashboard', 'class="nav-link"'); ?>
             </li>
             <li>
+              <?php echo anchor('Trip/listall', '<i class="nc-icon nc-bullet-list-67"></i>Trips', 'class="nav-link"'); ?>
+            </li>
+            <li>
+              <?php echo anchor('Trip/salesreport', '<i class="nc-icon nc-paper"></i>Sales Report', 'class="nav-link"'); ?>
+            </li>
+            <li>
               <?php echo anchor('Car', '<i class="nc-icon nc-delivery-fast"></i>View Cars', 'class="nav-link"'); ?>
             </li>
 
@@ -64,7 +70,8 @@
             <li>
               <?php echo anchor('Users/add', '<i class="nc-icon nc-simple-add"></i>Add Users', 'class="nav-link"'); ?>
             </li>
-            <li class="active-pro">
+           
+            <li class="">
               <?php
               if ($this->session->userdata('currently_logged_in')) {
                 echo anchor('Login/logout', '<i class="nc-icon nc-spaceship"></i>Logout', 'class="nav-link"');
@@ -97,7 +104,7 @@
             </li>
             <li>
             
-            <li class="active-pro">
+            <li class="">
               <?php
               if ($this->session->userdata('currently_logged_in')) {
                 echo anchor('Login/logout', '<i class="nc-icon nc-spaceship"></i>Logout', 'class="nav-link"');
@@ -133,7 +140,7 @@
             <li>
               <?php echo anchor('Drivers/trips/#completedtrips', '<i class="nc-icon nc-money-coins"></i>Completed Trip', 'class="nav-link"'); ?>
             </li>
-            <li class="active-pro">
+            <li class="">
               <?php
               if ($this->session->userdata('currently_logged_in')) {
                 echo anchor('Login/logout', '<i class="nc-icon nc-spaceship"></i>Logout', 'class="nav-link"');
@@ -240,16 +247,15 @@
           <div class="row">
             <nav class="footer-nav">
               <ul>
-                <li><a href="https://www.creative-tim.com" target="_blank">Creative Tim</a></li>
-                <li><a href="https://www.creative-tim.com/blog" target="_blank">Blog</a></li>
-                <li><a href="https://www.creative-tim.com/license" target="_blank">Licenses</a></li>
+                <li><a href="https://github.com/ujwalabhishek/cabservice.git" target="_blank">Code Repo</a></li>
+                <li><a href="#" target="_blank">Demo Videos</a></li>
               </ul>
             </nav>
             <div class="credits ml-auto">
               <span class="copyright">
                 © <script>
                   document.write(new Date().getFullYear())
-                </script>, made with <i class="fa fa-heart heart"></i> by Creative Tim
+                </script>, made  by<i class="fa "></i> by Ujwal Abhishek
               </span>
             </div>
           </div>

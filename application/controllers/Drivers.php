@@ -10,7 +10,7 @@ class Drivers extends CI_Controller
         $this->load->model('driver_model', 'driver');
         $this->load->model('trip_model', 'trip');
         $this->load->helper(array('form', 'url', 'security'));
-        $this->output->enable_profiler(TRUE);
+        //$this->output->enable_profiler(TRUE);
     }
     public function index()
     {
@@ -82,7 +82,16 @@ class Drivers extends CI_Controller
 
         $data['car_reg_id_unassigned'] = $this->car->get_unassigned_cabs();
 
+
         if ($this->form_validation->run() == TRUE) {
+            // update image only if new image is selected
+            $uploaddata = $this->do_upload('image_url');
+            if (!empty($uploaddata['upload_data']['file_name'])) {
+                $uploaddata = $this->do_upload('image_url');
+                $mdata['image_url'] = $uploaddata['upload_data']['file_name'];
+
+            }
+
             $mdata['name'] = $this->input->post('name');
             $mdata['gender'] = $this->input->post('gender');
             $mdata['email'] = $this->input->post('email');
@@ -99,10 +108,7 @@ class Drivers extends CI_Controller
                 redirect("drivers/details/" . $this->input->post('driver_id'));
             } else {
                 $this->session->set_flashdata('error', 'Update not appilied! No change in data.');
-                $data['page_title'] = 'Edit Driver';
-                $data['main_content'] = 'drivers/edit';
-                $data['driver_data'] = $_POST;
-                $this->load->view('layout', $data);
+                redirect("drivers/details/" . $this->input->post('driver_id'));
             }
         } else {
             $data['page_title'] = 'Edit Driver';
@@ -155,7 +161,7 @@ class Drivers extends CI_Controller
             $uploaddata = $this->do_upload('image_url');
 
             $_POST['image_url'] = $uploaddata['upload_data']['file_name'];
-            if ($driver_id = $this->driver->insert($_POST) and $uploaddata) { 
+            if ($driver_id = $this->driver->insert($_POST) and $uploaddata) {
                 $this->session->set_flashdata('success', "{$this->input->post('name')} added successfully!");
                 redirect("drivers/details/" . $driver_id);
             } else {
