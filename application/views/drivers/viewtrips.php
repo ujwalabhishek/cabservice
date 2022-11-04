@@ -426,3 +426,82 @@
     </div>
 <?php } ?>
 <!-- End of Completed trips  -->
+
+
+<!-- Cancelled trips  -->
+<?php if (!empty($trip_data)) { ?>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Cancelled Trips</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class=" text-primary">
+                                <tr>
+                                    <th>
+                                        Trip ID
+                                    </th>
+                                    <th>
+                                        Driver Name
+                                    </th>
+                                    <th>
+                                        Car No
+                                    </th>
+                                    <th>
+                                        Pickup
+                                    </th>
+                                    <th>
+                                        Drop
+                                    </th>
+                                    <th class="text-center">
+                                        Trip Time
+                                    </th>
+
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+
+                                <?php
+                                //print_r($trip_data);
+                                foreach ($trip_data as $value) {
+                                    if ($value['status'] == 'Reject' || $value['status'] == 'Usercancelled' || $value['status'] == 'Drivercancelled') {
+
+                                ?>
+                                        <tr>
+                                            <td>
+                                                <?php echo anchor("Trip/details/{$value['trip_id']}", $value['trip_id'], 'class="nav-link" title="Click to view trip details" '); ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $value['name']; ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $value['car_reg_id']; ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $value['pickup_location']; ?>
+                                            </td>
+                                            <td class="text-center">
+                                                <?php echo $value['drop_location']; ?>
+                                            </td>
+                                            <td class="text-center">
+                                                <?php echo date_format(date_create($value['trip_datetime']), "d/m/Y h:i A"); ?>
+                                            </td>
+
+                                        </tr>
+                                <?php }
+                                } ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+<?php } ?>
+<!-- End of Cancelled trips  -->
