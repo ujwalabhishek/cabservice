@@ -202,7 +202,7 @@ class Trip extends CI_Controller
             $updatedata['end_km'] = $this->input->post('end_km');
             $updatedata['trip_end_datetime'] = date('Y-m-d H:i:s');
             $updatedata['status'] = 'Completed';
-            $updatedata['trip_cost'] = ($this->input->post('start_km') - $this->input->post('end_km')) * $this->input->post('rate_per_km');
+            $updatedata['trip_cost'] = (($this->input->post('end_km') - $this->input->post('start_km'))) * $this->input->post('rate_per_km');
 
             $updateFlag = $this->trip->update($trip_id, $updatedata);
 
