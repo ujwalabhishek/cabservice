@@ -17,7 +17,7 @@ class Trip extends CI_Controller
     public function listall()
     {
         $data['page_title'] = 'View Trips';
-        $data['main_content'] = 'Trip/view';
+        $data['main_content'] = 'trip/view';
         $data['trip_data'] = $this->trip->get_full_details_by_id_array();
         if ($this->session->userdata('currently_logged_in')) {
             empty($data['trip_data']) ? $this->session->set_flashdata('error', 'Sorry ! No trips found') : '';
