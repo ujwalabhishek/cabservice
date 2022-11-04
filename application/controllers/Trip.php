@@ -72,7 +72,7 @@ class Trip extends CI_Controller
     public function details($trip_id)
     {
         $data['page_title'] = 'View Trip Details';
-        $data['main_content'] = 'Trip/details';
+        $data['main_content'] = 'trip/details';
         $data['trip_data'] = $this->trip->get_full_details_by_id($trip_id);
         if ($this->session->userdata('currently_logged_in')) {
             empty($data['trip_data']) ? $this->session->set_flashdata('error', 'Sorry ! No trip found with this id') : '';
@@ -104,7 +104,7 @@ class Trip extends CI_Controller
     public function payments()
     {
         $data['page_title'] = 'Pending Payments';
-        $data['main_content'] = 'Trip/payments';
+        $data['main_content'] = 'trip/payments';
 
         $data['trip_data'] = $this->trip->get_full_details_by_userid($this->session->userdata('role'), $this->session->userdata('userid'));
         if (empty($data['trip_data'])) {
@@ -136,7 +136,7 @@ class Trip extends CI_Controller
     public function feedback($trip_id = NULL)
     {
         $data['page_title'] = 'Trip Feedback';
-        $data['main_content'] = 'Trip/feedback';
+        $data['main_content'] = 'trip/feedback';
         $data['trip_data'] = $this->trip->get_full_details_by_id($trip_id);
         if ($this->session->userdata('currently_logged_in')) {
             empty($data['trip_data']) ? $this->session->set_flashdata('error', 'Sorry ! No trip found with this id') : '';
@@ -157,7 +157,7 @@ class Trip extends CI_Controller
             redirect(site_url("trip/details/$trip_id"));
         } else {
             $data['page_title'] = 'Trip Feedback';
-            $data['main_content'] = 'Trip/feedback';
+            $data['main_content'] = 'trip/feedback';
             $data['trip_data'] = $this->trip->get_full_details_by_id($trip_id);
             $this->session->set_flashdata('error', 'Sorry ! No trip found with this id');
             $this->load->view('layout', $data);
@@ -183,7 +183,7 @@ class Trip extends CI_Controller
     {
         $data['action'] = $status;
         $data['page_title'] = "$status Trip";
-        $data['main_content'] = 'Trip/commence';
+        $data['main_content'] = 'trip/commence';
         $data['trip_data'] = $this->trip->get_full_details_by_id($trip_id);
         if ($status == "Start" and !empty($this->input->post('start_km'))) {
             $updatedata['start_km'] = $this->input->post('start_km');
