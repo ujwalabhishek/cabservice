@@ -171,7 +171,7 @@ class Trip extends CI_Controller
         $updateFlag = $this->trip->update($trip_id, $data);
 
         if ($updateFlag) {
-            $this->session->set_flashdata('success', "Trip ID- {$trip_id}  accepted successfully!!");
+            $this->session->set_flashdata('success', "Trip ID- {$trip_id}  updated successfully!!");
         } else {
             $this->session->set_flashdata('error', 'Sorry ! No trip found with this id');
         }
