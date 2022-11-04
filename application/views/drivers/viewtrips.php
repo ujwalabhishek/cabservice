@@ -445,7 +445,7 @@
                                         Trip ID
                                     </th>
                                     <th>
-                                        Driver Name
+                                        Passenger Name
                                     </th>
                                     <th>
                                         Car No
@@ -477,7 +477,7 @@
                                                 <?php echo anchor("Trip/details/{$value['trip_id']}", $value['trip_id'], 'class="nav-link" title="Click to view trip details" '); ?>
                                             </td>
                                             <td>
-                                                <?php echo $value['name']; ?>
+                                                <?php echo $value['passenger_name']; ?>
                                             </td>
                                             <td>
                                                 <?php echo $value['car_reg_id']; ?>
