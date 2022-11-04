@@ -1,42 +1,104 @@
+<style>
+  .card-user .image {
+    height: auto;
+  }
+
+  .staro {
+    width: 25px;
+    padding: 5px
+  }
+</style>
 <div class="row">
-  <div class="col-md-4">
+  <div class="col-md-12">
     <div class="card ">
       <div class="card-header ">
-        <h5 class="card-title">Datetimepicker</h5>
+        <h5 class="card-title">Search Cabs</h5>
       </div>
       <div class="card-body ">
-        <div class="form-group">
-          <input type="text" class="form-control datetimepicker" value="10/05/2018">
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-4">
-    <div class="card ">
-      <div class="card-header ">
-        <h5 class="card-title">Date Picker</h5>
-      </div>
-      <div class="card-body ">
-        <div class="form-group">
-          <input type="text" class="form-control datepicker" value="10/05/2018">
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-4">
-    <div class="card ">
-      <div class="card-header ">
-        <h5 class="card-title">Time Picker</h5>
-      </div>
-      <div class="card-body ">
-        <div class="form-group">
-          <input type="text" class="form-control timepicker" value="10/05/2018">
-        </div>
+        <form method="post" action="<?php echo site_url('Users/bookcabs'); ?>" class="form">
+          <div class="row">
+            <div class="col-md-3">
+              <div class=" ">
+                <div class="card-header ">
+                  <h5 class="card-title">Cab Type</h5>
+                </div>
+                <div class="card-body ">
+                  <?php echo form_error('category', '<div class="error">', '</div>'); ?>
+                  <div class="form-group">
+                    <select name="category" class="form-control" placeholder="Category">
+                      <option value="" <?php if (set_value('category') == "") {
+                                          echo "selected";
+                                        }; ?>>Select</option>
+                      <option value="SUV" <?php if (set_value('category') == "SUV") {
+                                            echo "selected";
+                                          }; ?>>SUV</option>
+                      <option value="SEDAN" <?php if (set_value('category') == "SEDAN") {
+                                              echo "selected";
+                                            }; ?>>Sedan</option>
+                      <option value="MINI" <?php if (set_value('category') == "MINI") {
+                                              echo "selected";
+                                            }; ?>>Compact Mini</option>
+                      <option value="MICRO" <?php if (set_value('category') == "MICRO") {
+                                              echo "selected";
+                                            }; ?>>Compact Micro</option>
+                      <option value="LUX" <?php if (set_value('category') == "LUX") {
+                                            echo "selected";
+                                          }; ?>>Luxury</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class=" ">
+                <div class="card-header ">
+                  <h5 class="card-title">Pickup Location</h5>
+                </div>
+                <div class="card-body">
+                  <?php echo form_error('pickup_location', '<div class="error">', '</div>'); ?>
+                  <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Whitefeild" name="pickup_location" value="<?php echo set_value('pickup_location'); ?>">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class=" ">
+                <div class="card-header ">
+                  <h5 class="card-title">Drop Location</h5>
+                </div>
+                <div class="card-body ">
+                  <?php echo form_error('drop_location', '<div class="error">', '</div>'); ?>
+                  <div class="form-group">
+                    <input type="text" class="form-control " placeholder="Marathalli" name="drop_location" value="<?php echo set_value('drop_location'); ?>">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class=" ">
+                <div class="card-header ">
+                  <h5 class="card-title">DateTime</h5>
+                </div>
+                <div class="card-body ">
+                  <?php echo form_error('trip_datetime', '<div class="error">', '</div>'); ?>
+                  <div class="form-group">
+                    <input type="text" class="form-control datetimepicker" placeholder="10/05/2018" name="trip_datetime" value="<?php echo set_value('trip_datetime'); ?>">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="update ml-auto mr-auto ">
+              <input type="submit" class="btn btn-primary " value="Search Cabs" name="search">
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   </div>
 </div>
-
 <div class="row">
   <div class="col-lg-3 col-md-6 col-sm-6">
     <div class="card card-stats">
