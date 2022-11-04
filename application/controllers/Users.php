@@ -117,7 +117,7 @@ class Users extends CI_Controller
 
     public function details($user_id)
     {
-        $data['page_title'] = 'View Driver Details';
+        $data['page_title'] = 'View Profile';
         $data['main_content'] = 'users/details';
         $data['user_data'] = $this->user->get_by_id($user_id);
         if ($this->session->userdata('currently_logged_in')) {
@@ -130,7 +130,7 @@ class Users extends CI_Controller
 
     public function edit($user_id)
     {
-        $data['page_title'] = 'Edit Driver Details';
+        $data['page_title'] = 'Edit Profile';
         $data['main_content'] = 'users/edit';
         $data['user_data'] = $this->user->get_by_id($user_id);
 
@@ -187,7 +187,7 @@ class Users extends CI_Controller
             }
 
             if ($this->user->update($this->input->post('user_id'), $mdata)) {
-                $this->session->set_flashdata('success', "Driver details updated successfully!");
+                $this->session->set_flashdata('success', "Details updated successfully!");
                 redirect("Users/details/" . $this->input->post('user_id'));
             } else {
                 $this->session->set_flashdata('error', 'Update not appilied! No change in data.');
@@ -207,7 +207,7 @@ class Users extends CI_Controller
 
     public function add()
     {
-        $data['page_title'] = 'Add Driver';
+        $data['page_title'] = 'Add User';
         $data['main_content'] = 'users/add';
         $this->load->view('layout', $data);
     }
