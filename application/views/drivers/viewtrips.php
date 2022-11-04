@@ -91,7 +91,7 @@
                                                 <?php echo date_format(date_create($value['trip_start_datetime']), "d/m/Y h:i A"); ?>
                                             </td>
                                             <td class="text-center">
-                                            <?php echo $value['start_km']; ?>
+                                                <?php echo $value['start_km']; ?>
                                             </td>
                                             <td class="text-center">
                                                 <?php
@@ -247,9 +247,9 @@
                                     <th class="text-center">
                                         Start Trip
                                     </th>
-                                    <!-- <th class="text-center">
-                                        End Trip
-                                    </th> -->
+                                    <th class="text-center">
+                                        Cancel Trip
+                                    </th>
 
                                 </tr>
                             </thead>
@@ -263,7 +263,7 @@
                                     if ($value['status'] == 'Accept') {
                                 ?>
                                         <tr>
-                                        <td>
+                                            <td>
                                                 <?php echo anchor("Trip/details/{$value['trip_id']}", $value['trip_id'], 'class="nav-link" title="Click to view trip details" '); ?>
                                             </td>
                                             <td>
@@ -289,11 +289,11 @@
                                                 echo anchor("Trip/commence_trip_by_driver/{$value['trip_id']}/Start", 'Start', 'class="btn btn-sm btn-success" title="Start Ride" ');
                                                 ?>
                                             </td>
-                                            <!-- <td class="text-center">
+                                            <td class="text-center">
                                                 <?php
-                                                echo anchor("Trip/commence_trip_by_driver/{$value['trip_id']}/End", 'End', 'class="btn btn-sm btn-danger" title="End Ride" ');
+                                                echo anchor("Trip/updatetrip_by_driver/{$value['trip_id']}/Drivercancelled", 'Cancel', 'class="btn btn-sm btn-danger" title="Cancel Ride" ');
                                                 ?>
-                                            </td> -->
+                                            </td>
                                         </tr>
                                 <?php }
                                 } ?>
@@ -370,7 +370,7 @@
                                     if ($value['status'] == 'Completed') {
                                 ?>
                                         <tr>
-                                        <td>
+                                            <td>
                                                 <?php echo anchor("Trip/details/{$value['trip_id']}", $value['trip_id'], 'class="nav-link" title="Click to view trip details" '); ?>
                                             </td>
                                             <td>
@@ -397,7 +397,7 @@
                                             <td class="text-center">
                                                 <?php echo $value['start_km']; ?>
                                             </td>
-                                           
+
                                             <td class="text-center">
                                                 <?php echo $value['end_km']; ?>
                                             </td>
@@ -405,12 +405,12 @@
                                                 <?php echo $value['trip_cost']; ?>
                                             </td>
                                             <td class="text-center">
-                                            <?php 
-                                                if(empty($value['trip_cost'])){
+                                                <?php
+                                                if (empty($value['trip_cost'])) {
                                                     echo 'NA';
-                                                } else{
-                                                echo (!empty($value['customer_payment']) and ($value['trip_cost'] == $value['customer_payment'])) ? 'Paid' : anchor("Trip/pay/{$value['trip_id']}", 'Pay', 'class="btn btn-sm" title="Make Payment" '); 
-                                                }  
+                                                } else {
+                                                    echo (!empty($value['customer_payment']) and ($value['trip_cost'] == $value['customer_payment'])) ? 'Paid' : anchor("Trip/pay/{$value['trip_id']}", 'Pay', 'class="btn btn-sm" title="Make Payment" ');
+                                                }
                                                 ?>
                                             </td>
                                         </tr>
