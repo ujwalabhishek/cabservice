@@ -1,69 +1,36 @@
 <style>
     .card-user .image {
-        height: 150px;
+        height: auto;
     }
 </style>
-<div class="row">
-    <div class="col-md-4">
-        <div class="card card-user">
-            <div class="image">
-                <img src="<?php print base_url(); ?>assets/img/bg/venu.jpg" alt="...">
-            </div>
-
-            <div class="card-footer">
-                <hr>
-                <div class="button-container">
-                    <div class="row">
-                        <div class="col-lg-3 col-md-6 col-6 ml-auto">
-                            <h5>SUV<br><small>Type</small></h5>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-6 ml-auto mr-auto">
-                            <h5>Grey<br><small>Color</small></h5>
-                        </div>
-                        <div class="col-lg-4 mr-auto">
-                            <h5>$11/km<br><small>Rate</small></h5>
-                        </div>
+<form method="post" action="<?php echo site_url('Users/update'); ?>" class="form" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card card-user">
+                <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                    <div class="fileinput-new  image">
+                        <img src="<?php print base_url(); ?>assets/img/faces/<?php echo empty($user_data['image_url']) ? 'default-avatar.png' : $user_data['image_url']; ?>">
+                    </div>
+                    <div class="fileinput-preview fileinput-exists"></div>
+                    <div>
+                        <span class="btn btn-rose btn-round btn-file">
+                            <span class="fileinput-new">Select image</span>
+                            <span class="fileinput-exists">Change</span>
+                            <input type="file" name="image_url" value="">
+                        </span>
+                        <a href="javascript:;" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="card">
-            <div class="card-header">
-                <h4 class="card-title">Driver Details</h4>
-            </div>
-            <div class="card-body">
-                <ul class="list-unstyled team-members">
-                    <li>
-                        <div class="row">
-                            <div class="col-md-2 col-2">
-                                <div class="avatar">
-                                    <img src="<?php print base_url(); ?>assets/img/faces/ayo-ogunseinde-2.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                                </div>
-                            </div>
-                            <div class="col-md-7 col-7">
-                                DJ Khaled
-                                <br />
-                                <span class="text-muted"><small>Offline</small></span>
-                            </div>
-                            <div class="col-md-3 col-3 text-right">
-                                <btn class="btn btn-sm btn-outline-success btn-round btn-icon"><i class="fa fa-envelope"></i></btn>
-                            </div>
-                        </div>
-                    </li>
+        <div class="col-md-8">
+            <div class="card card-user">
+                <div class="card-header">
+                    <h5 class="card-title">Edit User</h5>
+                    <p><?php echo validation_errors(); ?>
+                </div>
+                <div class="card-body">
 
-
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-8">
-        <div class="card card-user">
-            <div class="card-header">
-                <h5 class="card-title">Edit User</h5>
-                <p><?php echo validation_errors(); ?>
-            </div>
-            <div class="card-body">
-                <form method="post" action="<?php echo site_url('Users/update'); ?>" class="form">
                     <div class="row">
                         <div class="col-md-5 pr-1">
                             <div class="form-group">
@@ -131,8 +98,9 @@
                             <input type="submit" class="btn btn-primary btn-round" value="Update Details">
                         </div>
                     </div>
-                </form>
+
+                </div>
             </div>
         </div>
     </div>
-</div>
+</form>

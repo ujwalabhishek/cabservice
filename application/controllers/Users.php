@@ -24,6 +24,23 @@ class Users extends CI_Controller
         }
     }
 
+    public function do_upload($inputname = NULL)
+    {
+        $config['upload_path'] = "assets/img/faces/";
+        $config['allowed_types'] = 'gif|jpg|png';
+        //$config['max_size'] = 1000;
+        //$config['max_width']  = 1024;
+        //$config['max_height'] = 768;
+
+        $this->load->library('upload', $config);
+        if (!$this->upload->do_upload($inputname)) {
+            $error = array('error' => $this->upload->display_errors());
+            return FALSE;
+        } else {
+            return $data = array('upload_data' => $this->upload->data());
+        }
+    }
+
     public function dashboard()
     {
         $data['page_title'] = 'Users';
@@ -43,16 +60,16 @@ class Users extends CI_Controller
         $this->form_validation->set_rules('pickup_location', 'Pickup Location', 'required|trim|xss_clean');
         $this->form_validation->set_rules('drop_location', 'Drop Location', 'required|trim|xss_clean');
         $this->form_validation->set_rules('trip_datetime', 'Trip Date & Time', 'required|trim|xss_clean');
-        $data['pickup_location']=$this->input->post('pickup_location');
-        $data['drop_location']=$this->input->post('drop_location');
-        $data['trip_datetime']=$this->input->post('trip_datetime');
+        $data['pickup_location'] = $this->input->post('pickup_location');
+        $data['drop_location'] = $this->input->post('drop_location');
+        $data['trip_datetime'] = $this->input->post('trip_datetime');
         if ($this->form_validation->run() == TRUE) {
 
-            $data['user_id']=$this->session->userdata('userid');
+            $data['user_id'] = $this->session->userdata('userid');
 
             $data['cab_data'] = $this->user->list_available_cabs($this->input->post('category'));
 
-            if(!$data['cab_data'] ){
+            if (!$data['cab_data']) {
                 $this->session->set_flashdata('error', 'Sorry ! No cabs found in your search category.');
             }
 
@@ -160,6 +177,11 @@ class Users extends CI_Controller
             $mdata['mobile_no'] = $this->input->post('mobile_no');
             $mdata['rating'] = $this->input->post('rating');
 
+            $uploaddata = $this->do_upload('image_url');
+            if (!empty($uploaddata)){
+                $mdata['image_url'] = $uploaddata['upload_data']['file_name'];
+            }
+            
             if (!empty($this->input->post('password')) && ($this->input->post('password') != 'passwd')) {
                 $mdata['password'] = $this->input->post('password');
             }
