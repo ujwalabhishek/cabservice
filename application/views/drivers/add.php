@@ -10,7 +10,7 @@
 
         <div class="fileinput fileinput-new text-center" data-provides="fileinput">
           <div class="fileinput-new  image">
-            <img src="<?php print base_url(); ?>assets/img/bg/getImage.png" alt="...">
+            <img src="<?php print base_url(); ?>assets/img/bg/default-avatar.png" alt="...">
           </div>
           <div class="fileinput-preview fileinput-exists"></div>
           <div>
