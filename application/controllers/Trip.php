@@ -31,7 +31,7 @@ class Trip extends CI_Controller
     public function salesreport()
     {
         $data['page_title'] = 'View Trips';
-        $data['main_content'] = 'Trip/salesreport';
+        $data['main_content'] = 'trip/salesreport';
         $data['trip_data'] = $this->trip->get_full_details_by_id_array();
         $data['total_sales'] = $this->trip->get_sales()['total_sales'];
         $data['total_revenue'] = $this->trip->get_sales(array('customer_payment!='=>''))['total_sales'];
@@ -47,7 +47,7 @@ class Trip extends CI_Controller
     public function mytrips()
     {
         $data['page_title'] = 'View My Trips';
-        $data['main_content'] = 'Trip/view';
+        $data['main_content'] = 'trip/view';
         $data['trip_data'] = $this->trip->get_full_details_by_userid($this->session->userdata('role'), $this->session->userdata('userid'));
         if ($this->session->userdata('currently_logged_in')) {
             empty($data['trip_data']) ? $this->session->set_flashdata('error', 'Sorry ! No trips found') : '';
@@ -63,7 +63,7 @@ class Trip extends CI_Controller
         $data['car_data'] = $this->driver->get_car_and_driver($_POST['driver_id'])[0];
         $data['user_id'] = $this->session->userdata('userid');
         $data['page_title'] = 'Book Your Trip';
-        $data['main_content'] = 'Trip/create';
+        $data['main_content'] = 'trip/create';
         //$data['booking_data'] = $_POST;
         //echo '<pre>'; print_r($data); exit("<pre>");
         $this->load->view('layout', $data);
@@ -85,7 +85,7 @@ class Trip extends CI_Controller
     public function cancel($trip_id)
     {
         $data['page_title'] = 'Cancel Trip';
-        $data['main_content'] = 'Trip/details';
+        $data['main_content'] = 'trip/details';
 
         $logged_in_user_role = $this->session->userdata('role');
         $updateData['status'] = $logged_in_user_role == 'driver' ? 'Drivercancelled' : 'Usercancelled';
@@ -119,7 +119,7 @@ class Trip extends CI_Controller
     public function pay($trip_id = NULL)
     {
         $data['page_title'] = 'Pay';
-        $data['main_content'] = 'Trip/payments';
+        $data['main_content'] = 'trip/payments';
         $data['trip_data'] = $this->trip->get_full_details_by_id_array($trip_id);
         $updateData['customer_payment'] = $data['trip_data'][0]['trip_cost'];
         $updateFlag = $this->trip->update($trip_id, $updateData);
@@ -154,7 +154,7 @@ class Trip extends CI_Controller
 
         if ($updateFlag) {
             $this->session->set_flashdata('success', 'Feedback submitted successfully!!');
-            redirect(site_url("Trip/details/$trip_id"));
+            redirect(site_url("trip/details/$trip_id"));
         } else {
             $data['page_title'] = 'Trip Feedback';
             $data['main_content'] = 'Trip/feedback';
@@ -235,13 +235,13 @@ class Trip extends CI_Controller
             } else {
                 $this->session->set_flashdata('error', 'Booking! Please check the data.');
                 $data['page_title'] = 'Confirm Trip';
-                $data['main_content'] = 'Trip/create';
+                $data['main_content'] = 'trip/create';
                 $data['car_data'] = $_POST;
                 $this->load->view('layout', $data);
             }
         } else {
             $data['page_title'] = 'Confirm Trip';
-            $data['main_content'] = 'Trip/create';
+            $data['main_content'] = 'trip/create';
             $data['car_data'] = $_POST;
             $this->load->view('layout', $data);
         }
